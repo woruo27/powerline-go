@@ -22,14 +22,14 @@ var defaults = Config{
 	Modules: []string{
 		"venv",
 		"user",
-		"host",
-		"ssh",
+		// "host",
+		// "ssh",
 		"cwd",
-		"perms",
+		// "perms",
 		"git",
 		"hg",
 		"jobs",
-		"exit",
+		// "exit",
 		"root",
 	},
 	ModulesRight: []string{},
@@ -210,9 +210,9 @@ var defaults = Config{
 			JobsBg: 238,
 
 			CmdPassedFg: 15,
-			CmdPassedBg: 236,
+			CmdPassedBg: 70,
 			CmdFailedFg: 15,
-			CmdFailedBg: 161,
+			CmdFailedBg: 124,
 
 			SvnChangesFg: 22, // dark green
 			SvnChangesBg: 148,

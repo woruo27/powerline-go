@@ -6,6 +6,7 @@ var defaults = Config{
 	CwdMaxDepth:            5,
 	CwdMaxDirSize:          -1,
 	ColorizeHostname:       false,
+	FqdnHostname:           false,
 	HostnameOnlyIfSSH:      false,
 	SshAlternateIcon:       false,
 	EastAsianWidth:         false,
@@ -22,14 +23,14 @@ var defaults = Config{
 	Modules: []string{
 		"venv",
 		"user",
-		"host",
-		"ssh",
+		// "host",
+		// "ssh",
 		"cwd",
-		"perms",
+		// "perms",
 		"git",
 		"hg",
 		"jobs",
-		"exit",
+		// "exit",
 		"root",
 	},
 	ModulesRight: []string{},
@@ -83,9 +84,12 @@ var defaults = Config{
 			RepoConflicted: "\u273C",
 			RepoStashed:    "\u2691",
 
-			VenvIndicator: "\uE235",
-			NodeIndicator: "\u2B22",
-			RvmIndicator:  "\uE92B",
+			DotEnvIndicator:    "\u2235",
+			KubeIndicator:      "\u2388",
+			NixShellIndicator:  "\uF313",
+			NodeIndicator:      "\u2B22",
+			RvmIndicator:       "\uE92B",
+			VenvIndicator:      "\uE235",
 		},
 		"patched": {
 			Lock:                 "\uE0A2",
@@ -106,9 +110,12 @@ var defaults = Config{
 			RepoConflicted: "\u273C",
 			RepoStashed:    "\u2691",
 
-			VenvIndicator: "\uE235",
-			NodeIndicator: "\u2B22",
-			RvmIndicator:  "\uE92B",
+			DotEnvIndicator:    "\u2235",
+			KubeIndicator:      "\u2388",
+			NixShellIndicator:  "\uF313",
+			NodeIndicator:      "\u2B22",
+			RvmIndicator:       "\uE92B",
+			VenvIndicator:      "\uE235",
 		},
 		"flat": {
 			RepoDetached:   "\u2693",
@@ -120,9 +127,12 @@ var defaults = Config{
 			RepoConflicted: "\u273C",
 			RepoStashed:    "\u2691",
 
-			VenvIndicator: "\uE235",
-			NodeIndicator: "\u2B22",
-			RvmIndicator:  "\uE92B",
+			DotEnvIndicator:    "\u2235",
+			KubeIndicator:      "\u2388",
+			NixShellIndicator:  "\uF313",
+			NodeIndicator:      "\u2B22",
+			RvmIndicator:       "\uE92B",
+			VenvIndicator:      "\uE235",
 		},
 	},
 	Shells: ShellMap{
@@ -147,7 +157,7 @@ var defaults = Config{
 			EvalPromptRightSuffix: `"`,
 		},
 		"bare": {
-			ColorTemplate: "%s",
+			ColorTemplate:    "%s",
 			RootIndicator:    "$",
 			EscapedBackslash: `\`,
 			EscapedBacktick:  "`",
@@ -198,6 +208,9 @@ var defaults = Config{
 			DotEnvFg: 15, // white
 			DotEnvBg: 55, // purple
 
+			AzureFg: 15, // white
+			AzureBg: 26, // Azure blue
+
 			AWSFg: 15,  // white
 			AWSBg: 172, // AWS orange
 
@@ -210,9 +223,9 @@ var defaults = Config{
 			JobsBg: 238,
 
 			CmdPassedFg: 15,
-			CmdPassedBg: 236,
+			CmdPassedBg: 70,
 			CmdFailedFg: 15,
-			CmdFailedBg: 161,
+			CmdFailedBg: 124,
 
 			SvnChangesFg: 22, // dark green
 			SvnChangesBg: 148,

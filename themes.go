@@ -20,9 +20,12 @@ type SymbolTemplate struct {
 	RepoConflicted string
 	RepoStashed    string
 
-	VenvIndicator string
-	NodeIndicator string
-	RvmIndicator  string
+	DotEnvIndicator   string
+	KubeIndicator     string
+	NixShellIndicator string
+	NodeIndicator     string
+	RvmIndicator      string
+	VenvIndicator     string
 }
 
 // Theme definitions
@@ -74,6 +77,9 @@ type Theme struct {
 
 	DotEnvFg uint8
 	DotEnvBg uint8
+
+	AzureFg uint8
+	AzureBg uint8
 
 	AWSFg uint8
 	AWSBg uint8

@@ -10,6 +10,7 @@ type arguments struct {
 	CwdMaxDepth            *int
 	CwdMaxDirSize          *int
 	ColorizeHostname       *bool
+	FqdnHostname           *bool
 	HostnameOnlyIfSSH      *bool
 	SshAlternateIcon       *bool
 	EastAsianWidth         *bool
@@ -46,6 +47,7 @@ type arguments struct {
 	IgnoreWarnings         *bool
 	Time                   *string
 	ViMode                 *string
+	Version                *bool
 }
 
 var args = arguments{
@@ -66,6 +68,10 @@ var args = arguments{
 		"colorize-hostname",
 		defaults.ColorizeHostname,
 		comments("Colorize the hostname based on a hash of itself, or use the PLGO_HOSTNAMEFG and PLGO_HOSTNAMEBG env vars (both need to be set).")),
+	FqdnHostname: flag.Bool(
+		"fqdn-hostname",
+		defaults.FqdnHostname,
+		comments("Use the longer fully qualified domain name as the hostname")),
 	HostnameOnlyIfSSH: flag.Bool(
 		"hostname-only-if-ssh",
 		defaults.HostnameOnlyIfSSH,
@@ -127,19 +133,19 @@ var args = arguments{
 		"modules",
 		strings.Join(defaults.Modules, ","),
 		commentsWithDefaults("The list of modules to load, separated by ','",
-			"(valid choices: aws, bzr, cwd, direnv, docker, docker-context, dotenv, duration, exit, fossil, gcp, git, gitlite, goenv, hg, host, jobs, kube, load, newline, nix-shell, node, perlbrew, perms, plenv, rbenv, root, rvm, shell-var, shenv, ssh, svn, termtitle, terraform-workspace, time, user, venv, vgo, vi-mode, wsl)",
+			"(valid choices: aws, bzr, cwd, direnv, docker, docker-context, dotenv, duration, exit, fossil, gcp, git, gitlite, goenv, hg, host, jobs, kube, load, newline, nix-shell, node, perlbrew, perms, plenv, rbenv, root, rvm, shell-var, shenv, ssh, svn, termtitle, terraform-workspace, time, user, venv, vgo, vi-mode, wsl, azure)",
 			"Unrecognized modules will be invoked as 'powerline-go-MODULE' executable plugins and should output a (possibly empty) list of JSON objects that unmarshal to powerline-go's Segment structs.")),
 	ModulesRight: flag.String(
 		"modules-right",
 		strings.Join(defaults.ModulesRight, ","),
 		comments("The list of modules to load anchored to the right, for shells that support it, separated by ','",
-			"(valid choices: aws, bzr, cwd, direnv, docker, docker-context, dotenv, duration, exit, fossil, gcp, git, gitlite, goenv, hg, host, jobs, kube, load, newline, nix-shell, node, perlbrew, perms, plenv, rbenv, root, rvm, shell-var, shenv, ssh, svn, termtitle, terraform-workspace, time, user, venv, vgo, wsl)",
+			"(valid choices: aws, bzr, cwd, direnv, docker, docker-context, dotenv, duration, exit, fossil, gcp, git, gitlite, goenv, hg, host, jobs, kube, load, newline, nix-shell, node, perlbrew, perms, plenv, rbenv, root, rvm, shell-var, shenv, ssh, svn, termtitle, terraform-workspace, time, user, venv, vgo, wsl, azure)",
 			"Unrecognized modules will be invoked as 'powerline-go-MODULE' executable plugins and should output a (possibly empty) list of JSON objects that unmarshal to powerline-go's Segment structs.")),
 	Priority: flag.String(
 		"priority",
 		strings.Join(defaults.Priority, ","),
 		commentsWithDefaults("Segments sorted by priority, if not enough space exists, the least priorized segments are removed first. Separate with ','",
-			"(valid choices: aws, bzr, cwd, direnv, docker, docker-context, dotenv, duration, exit, fossil, gcp, git, gitlite, goenv, hg, host, jobs, kube, load, newline, nix-shell, node, perlbrew, perms, plenv, rbenv, root, rvm, shell-var, shenv, ssh, svn, termtitle, terraform-workspace, time, user, venv, vgo, vi-mode, wsl)")),
+			"(valid choices: aws, bzr, cwd, direnv, docker, docker-context, dotenv, duration, exit, fossil, gcp, git, gitlite, goenv, hg, host, jobs, kube, load, newline, nix-shell, node, perlbrew, perms, plenv, rbenv, root, rvm, shell-var, shenv, ssh, svn, termtitle, terraform-workspace, time, user, venv, vgo, vi-mode, wsl, azure)")),
 	MaxWidthPercentage: flag.Int(
 		"max-width",
 		defaults.MaxWidthPercentage,
@@ -200,7 +206,7 @@ var args = arguments{
 		"time",
 		defaults.Time,
 		comments("The layout string how a reference time should be represented.",
-			"The reference time is predefined and not user choosen.",
+			"The reference time is predefined and not user chosen.",
 			"Consult the golang documentation for details: https://pkg.go.dev/time#example-Time.Format")),
 	DurationMin: flag.String(
 		"duration-min",
@@ -226,4 +232,8 @@ var args = arguments{
 		"vi-mode",
 		defaults.ViMode,
 		comments("The current vi-mode (eg. KEYMAP for zsh) for vi-module module")),
+	Version: flag.Bool(
+		"version",
+		false,
+		comments("Print the current version and exit")),
 }
